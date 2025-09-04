@@ -2,8 +2,6 @@
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import LabelEncoder
@@ -12,7 +10,7 @@ from sklearn.metrics import accuracy_score,classification_report,confusion_matri
 import joblib
 
 #load Dataset
-data=pd.read_csv("/home/rgukt/python/Linearregreesion/Loan_Prediction/loan_prediction.csv")
+data=pd.read_csv("loan_prediction.csv")
 print("Dataset Shape:",data.shape)
 #print(data.head())
 data=data.drop(columns=['Loan_ID'])
@@ -68,7 +66,8 @@ print("\nBest parameters from GridSearch:",grid.best_params_)
 print("Best CV score:",grid.best_score_)
 
 #save model
-joblib.dump(dt,"loan_approval_model.pkl")
+best_model = grid.best_estimator_
+joblib.dump(best_model,"loan_approval_model.pkl")
 print("Model saved as loan_approval_model.pkl")
 
 
