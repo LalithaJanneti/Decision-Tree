@@ -1,10 +1,13 @@
 import streamlit as st
 import pandas as pd
-import joblib
-import matplotlib.pyplot as plt 
+import joblib 
 
 #load the trained model
-model=joblib.load("loan_approval_model.pkl")
+@st.cache_resource
+def load_model():
+    return joblib.load("loan_approval_model.pkl")
+
+model = load_model()
 
 #title of the app
 st.title("🏦 Loan Approval Prediction App")
@@ -16,7 +19,7 @@ st.write("Fill in the details below to check loan approval status:")
 gender=st.selectbox("Gender",["Male","Female"])
 married=st.selectbox("Marital Status",["No","Yes"])
 dependents=st.selectbox("Dependents",["0","1","2","3+"])
-education = st.selectbox("Education",["Graduate","NOt Graduate"])
+education = st.selectbox("Education",["Graduate","Not Graduate"])
 self_employed = st.selectbox("Self Employed",["No","Yes"])
 applicant_income= st.number_input("Applicant Income",min_value=0)
 coapplicant_income=st.number_input("Coapplicant Income",min_value=0)
